@@ -9,6 +9,9 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-void execute_command(char *line);
+#define N_ARGS 2
 
-#endif //!MAIN_H
+void execute_command(char *line);
+int parse_line(char *line, ssize_t *nread);
+
+#endif /*!MAIN_H*/
