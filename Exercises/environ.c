@@ -3,9 +3,12 @@
 /* Declaration of the environ global variable */
 extern char **environ;
 
-int main() {
+int main()
+{
+	char **env;
+
     /* Iterate through the environment variables */
-    for (char **env = environ; *env != NULL; env++) {
+    for (env = environ; *env != NULL; env++) {
         printf("%s\n", *env);
     }
 

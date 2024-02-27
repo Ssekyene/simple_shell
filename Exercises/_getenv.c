@@ -4,9 +4,12 @@
 /* Declaration of the environ global variable */
 extern char **environ;
 
-char *_getenv(const char *name) {
+char *_getenv(const char *name)
+{
+	char **env;
+
     /* Iterate through the environment variables */
-    for (char **env = environ; *env != NULL; env++) {
+    for (env = environ; *env != NULL; env++) {
         /* Check if the current environment variable matches the name */
         if (strncmp(*env, name, strlen(name)) == 0 && *(*env + strlen(name)) == '=') {
             /* Return the value of the environment variable */

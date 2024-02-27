@@ -15,38 +15,42 @@
  */
 char **splitString(const char *str, char *del)
 {
+	char **words;
+	char *token;
+	int i;
+
 	if (strlen(del) != 1)
 	{
 		fprintf(stderr, "Error: Invalid delimeter\n");
 		exit (EXIT_FAILURE);
 	}
-    char **words = (char **)malloc(MAX_WORDS * sizeof(char *));
+    words = (char **)malloc(MAX_WORDS * sizeof(char *));
     if (words == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
 
-    char *token;
-    int i = 0;
+   
+    i = 0;
 
-    // Tokenize the string
+    /* Tokenize the string*/
     token = strtok((char *)str, del);
     while (token != NULL) {
-        // Allocate memory for the word
+        /* Allocate memory for the word*/
         words[i] = (char *)malloc((strlen(token) + 1) * sizeof(char));
         if (words[i] == NULL) {
             fprintf(stderr, "Memory allocation failed\n");
             exit(EXIT_FAILURE);
         }
-        // Copy the token (word) to the array
+        /*Copy the token (word) to the array*/
         strcpy(words[i], token);
         i++;
 
-        // Get the next token
+        /* Get the next token*/
         token = strtok(NULL, del);
     }
 
-    // Null-terminate the array of words
+    /* Null-terminate the array of words*/
     words[i] = NULL;
 
     return words;
@@ -54,22 +58,25 @@ char **splitString(const char *str, char *del)
 
 int main(int ac, char **av) 
 {
+	int i;
+	char **words;
+
 	if (ac != 3)
 	{
 		fprintf(stderr, "Error: Invalid number of arguments\n");
 		exit (EXIT_FAILURE);
 	}
-    // Split the string into words
-    char **words = splitString(av[1], av[2]);
+    /* Split the string into words*/
+    words = splitString(av[1], av[2]);
 
-    // Print the array of words
-    for (int i = 0; words[i] != NULL; i++) {
+    /* Print the array of words*/
+    for (i = 0; words[i] != NULL; i++) {
         printf("%s\n", words[i]);
-        // Don't forget to free memory allocated for each word
+        /* Don't forget to free memory allocated for each word*/
         free(words[i]);
     }
 
-    // Free memory allocated for the array of words
+    /* Free memory allocated for the array of words*/
     free(words);
 
     return 0;
