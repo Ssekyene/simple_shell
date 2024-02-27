@@ -7,6 +7,15 @@
 
 #define MAX_PATH_LEN 1024
 
+/**
+ * search_file - finds out whether a file exits in the
+ *			PATH
+ *@filename: name of the file
+ *@path: current path variable
+ *
+ *Return: Number of file paths the file exits or
+ *		0 on failure to find the file
+ */
 int search_file(const char *filename, char *path)
 {
 	char full_path[MAX_PATH_LEN];
@@ -18,7 +27,6 @@ int search_file(const char *filename, char *path)
 	p_count = 0;
 	strcpy(file_path, "/");
 	token = strtok(path, ":");
-	//printf("First token: %s\nfile_path: %s\nfilename: %s\n", token, file_path, filename);
 	if (token == NULL)
 	{
 		fprintf(stderr, "Failed to tokenize PATH\n");
@@ -27,30 +35,26 @@ int search_file(const char *filename, char *path)
 	while (token != NULL)
 	{
 		strcat(file_path, filename);
-		//printf("file_path before emptied: %s\n", file_path);
 		strcpy(full_path, token);
 		strcat(full_path, file_path);
 
-		//printf("FullPath: %s\n", full_path);
 		file_path[0] = '\0';
-		//printf("file_path: %s\n", file_path);
 		strcpy(file_path, "/");
 		if (stat(full_path, &file_stat) == 0)
 		{
 			printf("%s\n", full_path);
 			p_count++;
 		}
-		//else
-		//	printf("file %s not found\n", full_path); 
 		token = strtok(NULL, ":");
 	}
-	//free(file_path);
 	return (p_count);
 }
 
 /**
- * main - stat example
- *
+ * main - locates and prints the file paths
+ *		for existing files in the PATH
+ *@ac: number of commandline arguments
+ *@av: the argument list for files to search
  * Return: Always 0.
  */
 int main(int ac, char **av)
@@ -69,7 +73,6 @@ int main(int ac, char **av)
 		printf("Error: PATH environment variable not set.\n");
 		return 1;
 	}
-	//printf("PATH: %s\n", path); 
 	i = 1;
 	while (av[i])
 	{
@@ -80,15 +83,6 @@ int main(int ac, char **av)
 	
 		else
 			printf("%u path(s) found for %s\n", n_paths, av[i]);
-		//printf("%s:", av[i]);
-		//if (stat(av[i], &st) == 0)
-		//{
-			//printf(" FOUND\n");
-		//}
-		//else
-		//{
-			//printf(" NOT FOUND\n");
-		//}
 		i++;
 	}
     return (0);
