@@ -40,6 +40,7 @@ int main(void)
 		if (line != NULL)
 			execute_command(line);
 	}
+
 	if (line != NULL)
 		free(line);
 	return (0);

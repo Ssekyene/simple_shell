@@ -11,13 +11,16 @@
  */
 void execute_command(char *line)
 {
-	char *argv[N_ARGS];
-	int status;
+	char **argv;
+	int status, i;
 	pid_t pid;
 
-	argv[0] = line;
-	argv[1] = NULL;
-
+	argv = split_line(line);
+	if (argv == NULL)
+	{
+		fprintf(stderr, "Error: %s\n", strerror(errno));
+		return;
+	}
 	pid = fork();
 	if (pid == -1)
 	{
@@ -26,15 +29,17 @@ void execute_command(char *line)
 	}
 	if (pid == 0)
 	{
+		/*run child process*/
 		if ((execve(argv[0], argv, NULL)) == -1)
 		{
-			fprintf(stderr, "Failed to run a child process\n");
+			fprintf(stderr, "Failed to locate command\n");
 			exit(EXIT_FAILURE);
 		}
 		exit(EXIT_SUCCESS);
 	}
 	else
-	{
 		wait(&status);
-	}
+	for (i = 0; argv[i]; i++)
+		free(argv[i]);
+	free(argv);
 }
