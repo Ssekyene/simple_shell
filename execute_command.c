@@ -14,12 +14,23 @@ void execute_command(char *line)
 	char **argv;
 	int status, i;
 	pid_t pid;
+	char *cmd;
 
 	argv = split_line(line);
 	if (argv == NULL)
 	{
 		fprintf(stderr, "Error: %s\n", strerror(errno));
 		return;
+	}
+	cmd = argv[0];
+	if ((**argv != '.' && *(*argv + 1) != '/') || **argv != '/')
+	{
+		argv[0] = search_in_file_path(argv[0]);
+		if (argv[0] == NULL)
+		{
+			printf("%s: not found\n", cmd);
+			return;
+		}
 	}
 	pid = fork();
 	if (pid == -1)
