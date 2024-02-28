@@ -1,23 +1,19 @@
 #include "main.h"
-
-#define MAX_PATH_LEN 1024
-
 /**
  * search_in_file_path - finds out whether a file
  *			exits in the PATH
  *@filename: name of the file
- *
+ *@path: file path
  *Return: a pointer to path of the file or
  *		NULL on failure
  */
-char *search_in_file_path(const char *filename)
+char *search_in_file_path(const char *filename, char *path)
 {
 	char full_path[MAX_PATH_LEN];
 	char file_path[MAX_PATH_LEN], *token;
 	struct stat file_stat;
-	char *path, *found_path;
+	char *found_path;
 
-	path = getenv("PATH");
 	if (path == NULL)
 	{
 		printf("Error: PATH environment variable not set.\n");
@@ -29,7 +25,7 @@ char *search_in_file_path(const char *filename)
 	if (token == NULL)
 	{
 		fprintf(stderr, "Failed to tokenize PATH\n");
-		return(NULL);
+		return (NULL);
 	}
 	while (token != NULL)
 	{

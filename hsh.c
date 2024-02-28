@@ -63,7 +63,7 @@ int parse_line(char *line, ssize_t *nread)
 
 	if (line[*nread - 1] == '\n')
 		line[*nread - 1] = '\0';
-	if (strcmp(line, "exit") == 0)
+	if (strncmp(line, "exit", 4) == 0)
 		return (-1);
 	return (0);
 }
