@@ -33,7 +33,7 @@ int main(void)
 			continue;
 		}
 		res = parse_line(line, &nread);
-		if (res == 1)
+		if (res == 1 || res == 2)
 			continue;
 		else if (res == -1)
 			break;
@@ -65,5 +65,10 @@ int parse_line(char *line, ssize_t *nread)
 		line[*nread - 1] = '\0';
 	if (strncmp(line, "exit", 4) == 0)
 		return (-1);
+	else if ((strncmp(line, "env", 3)) == 0)
+	{
+		env();
+		return (2);
+	}
 	return (0);
 }

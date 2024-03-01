@@ -65,6 +65,7 @@ void execute_command(char *line)
 {
 	int i;
 	char path[MAX_PATH_LEN], **argv;
+	char *value;
 
 	argv = split_line(line);
 	if (argv == NULL)
@@ -72,7 +73,8 @@ void execute_command(char *line)
 		fprintf(stderr, "Error: %s\n", strerror(errno));
 		return;
 	}
-	strcpy(path, getenv("PATH"));
+	value = getenv("PATH");
+	strcpy(path, value);
 
 	if (!((**argv == '.' && *(*argv + 1) == '/') || **argv == '/'))
 	{
