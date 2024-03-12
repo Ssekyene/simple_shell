@@ -12,9 +12,9 @@ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
 $ ./hsh
 ($) ls
-Exercises  README.md  env.c  execute_command.c  hsh  main.h  search_in_file_path.c  shell.c  split_line.c
+Tools  README.md  env.c  execute_command.c  main.h  search_in_file_path.c  shell.c  split_line.c
 ($)
-($) ./Exercises/bin/pid
+($) ./Tools/bin/pid
 PPID: 106
 PID: 109
 ($) exit
@@ -24,13 +24,13 @@ $
 
 ```c
 $ echo "ls" | ./hsh
-Exercises  README.md  env.c  execute_command.c  hsh  main.h  search_in_file_path.c  shell.c  split_line.c
+Tools  README.md  env.c  execute_command.c  main.h  search_in_file_path.c  shell.c  split_line.c
 $
 $ cat test_ls_2
 ls
 $
 $ cat test_ls_2 | ./hsh
-Exercises  README.md  env.c  execute_command.c  hsh  main.h  search_in_file_path.c  shell.c  split_line.c
+Tools  README.md  env.c  execute_command.c  main.h  search_in_file_path.c  shell.c  split_line.c
 
 $
 ```
